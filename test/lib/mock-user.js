@@ -1,6 +1,6 @@
 'use strict'
 
-// const User = require(../../model/user.js)
+const User = require(../../model/user.js)
 
 moduel.exports = function(done) {
 
