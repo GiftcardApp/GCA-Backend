@@ -6,22 +6,25 @@ const jwt = require('jsonwebtoken')
 const Promise = require('bluebird')
 const mongoose = require('mongoose')
 const createError = require('http-errors')
-const debug = require('debug')('gca:user-model')
+const debug = require('debug')('gca-backend:user-model')
 
 const Schema = mongoose.Schema
 const userSchema = Schema({
-  username: {type: String, required: true, unique: true, minlength: 3},
+  username: {type: String, required: true, unique: true, minlength: 4},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   findHash: {type: String, unique: true},
+  dateJoined: {type: Date, default: Date.now, required: true},
+  giftCardIds: [{type: Schema.Types.ObjectId, ref: 'giftCard'}],
 })
 
-userSchema.methods.generatePasswordHash = function(password) {
+userSchema.methods.generatePasswordHash = function(password){
   debug('#generatePasswordHash')
 
   return new Promise((resolve, reject) => {
     if(!password) return reject(createError(400, 'Password required'))
     bcrypt.hash(password, 10, (err, hash) => {
+      /* istanbul ignore next */
       if(err) return reject(createError(401, 'Password hashing failed'))
       this.password = hash
       resolve(this)
@@ -36,12 +39,13 @@ userSchema.methods.comparePasswordHash = function(password) {
     bcrypt.compare(password, this.password, (err, valid) => {
 
       if(err) return(createError(401, 'Password validation failed'))
-      if(!valid) retun reject(createError(401, 'Wrong password'));
+      if(!valid) return reject(createError(401, 'Wrong password'))
 
       resolve(this)
     })
   })
 }
+
 
 userSchema.methods.generateFindHash = function() {
   debug('#generateFindHash')
@@ -50,8 +54,8 @@ userSchema.methods.generateFindHash = function() {
     let _generateFindHash = () => {
       this.findHash = crypto.randomBytes(32).toString('hex')
       this.save()
-      .then(() => resolve(this.findHash))
-      .catch(err => {return reject(createError(401, err.message))})
+        .then(() => resolve(this.findHash))
+        .catch(err => {return reject(createError(401, err.message))})
     }
 
     _generateFindHash()
@@ -63,8 +67,8 @@ userSchema.methods.generateToken = function() {
 
   return new Promise((resolve, reject) => {
     this.generateFindHash()
-    .then(findHash => reolve(jwt.sign({token: findHash}, process.env.APP_SECRET)))
-    .catch(err => {return reject(createError(401, err.message))})
+      .then(findHash => resolve(jwt.sign({token: findHash}, process.env.APP_SECRET)))
+      .catch(err => {return reject(createError(401, err.message))})
   })
 }
 

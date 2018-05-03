@@ -1,0 +1,1 @@
+APP_SECRET="GiftMeACard^793!@"

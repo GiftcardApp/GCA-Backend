@@ -1,8 +1,8 @@
 'use strict'
 
-const User = require(../../model/user.js)
+const User = require('../../model/user.js')
 
-moduel.exports = function(done) {
+module.exports = function(done) {
 
   new User({
     username : 'Example User' + Math.floor(Math.random() * (100 -1)) +1,

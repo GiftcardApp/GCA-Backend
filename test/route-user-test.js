@@ -61,7 +61,6 @@ describe('USER ROUTES', function() {
       done()
     })
 
-    // cannot make this fail
     it('should return a 400 with missing username', done => {
       chai.request(server)
         .post('/api/signup')
@@ -76,7 +75,6 @@ describe('USER ROUTES', function() {
       done()
     })
 
-    // cannot make this fail
     it('should return a 400 with missing Password', done => {
       chai.request(server)
         .post('/api/signup')

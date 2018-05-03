@@ -8,13 +8,13 @@
     "test": "test"
   },
   "scripts": {
-   "test-local": "mocha",
-   "lint": "eslint ./** --ignore-pattern /node_modules\/*/",
-   "start": "DEBUG=gca-backend nodemon server.js",
-   "debug": "DEBUG=gca-backend npm run test",
-   "cover": "istanbul cover _mocha",
-   "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-   "test": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "test-local": "mocha",
+    "lint": "eslint ./** --ignore-pattern /node_modules/*/",
+    "start": "DEBUG=gca-backend nodemon server.js",
+    "debug": "DEBUG=gca-backend npm run test",
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "test": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
