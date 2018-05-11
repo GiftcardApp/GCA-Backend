@@ -1,7 +1,7 @@
 'use strict'
 
 const debug = require('debug')('gca-backend: authCtrl')
-const User = require('../model/user.js')
+const User = require('../model/user')
 
 module.exports = exports = {}
 

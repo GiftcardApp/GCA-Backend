@@ -1,9 +1,9 @@
 'use strict'
 
 const debug = require('debug')
-const basicAuth = require('../lib/basic-auth-middleware.js')
-const bearerAuth = require('../lib/bearer-auth-middleware.js')
-const authCtrl = require('../controller/auth-controller.js')
+const basicAuth = require('../lib/basic-auth-middleware')
+const bearerAuth = require('../lib/bearer-auth-middleware')
+const authCtrl = require('../controller/auth-controller')
 
 module.exports = function(router){
   router.post('/signup', (req, res) => {

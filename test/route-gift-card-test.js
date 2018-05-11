@@ -1,17 +1,17 @@
 'use strict';
 
-require('./lib/mock-env.js');
-require('./lib/mock-aws.js');
+require('./lib/mock-env');
+require('./lib/mock-aws');
 
 const chai = require('chai');
 const expect = require('chai').expect;
 const http = require('chai-http');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
-const gift-card = require('../model/gift-card.js');
-const User = require('../model/user.js');
+const gift-card = require('../model/gift-card');
+const User = require('../model/user');
 
-const tempGiftCard = require('./lib/mock-gift-card.js');
+const tempGiftCard = require('./lib/mock-gift-card');
 const server = require('../server');
 
 mongoose.Promise = Promise;
