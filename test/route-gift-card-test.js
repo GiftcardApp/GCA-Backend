@@ -8,7 +8,7 @@ const expect = require('chai').expect;
 const http = require('chai-http');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
-const gift-card = require('../model/gift-card');
+const GiftCard = require('../model/gift-card');
 const User = require('../model/user');
 
 const tempGiftCard = require('./lib/mock-gift-card');

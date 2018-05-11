@@ -12,7 +12,7 @@ const Schema = mongoose.Schema
 const giftCatdSchema = Schema({
   cardTitle: {type: String, trim: true,},
   cardNumber: {type: Number, required: true, unique: true, minlength: 19, maxLength: 19},
-  cardExpirationDate:, {
+  cardExpirationDate: {
     validator: { $and:
       [
         { cardExpirationDate: { $type: Date,
