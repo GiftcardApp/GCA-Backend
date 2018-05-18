@@ -8,10 +8,10 @@ const expect = require('chai').expect;
 const http = require('chai-http');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
-const GiftCard = require('../model/gift-card');
+const GiftCard = require('../model/giftcard');
 const User = require('../model/user');
 
-const tempGiftCard = require('./lib/mock-gift-card');
+const tempGiftCard = require('./lib/mock-giftcard');
 const server = require('../server');
 
 mongoose.Promise = Promise;
@@ -27,12 +27,12 @@ describe('GIFT CARD ROUTES', function() {
       .catch(done);
   });
 
-  describe('testing POST to api/gift-card', function() {
+  describe('testing POST to api/giftcard', function() {
     before(tempGiftCard.bind(this));
 
     it('should return a 201 on Gift Card created', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: `${this.tempGiftCard.title}`,
           date: `${this.tempGiftCard.date}`,
@@ -83,7 +83,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 400 with missing title', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: undefined,
           date: `${this.tempGiftCard.date}`,
@@ -105,7 +105,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 400 with missing date', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: `${this.tempGiftCard.title}`,
           date: undefined,
@@ -127,7 +127,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 400 with missing location', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: `${this.tempGiftCard.title}`,
           date: `${this.tempGiftCard.date}`,
@@ -149,7 +149,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 400 with missing description', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: `${this.tempGiftCard.title}`,
           date: `${this.tempGiftCard.date}`,
@@ -171,7 +171,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 400 with missing dateCreated', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title: `${this.tempGiftCard.title}`,
           date: `${this.tempGiftCard.date}`,
@@ -193,7 +193,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 401 with missing userId', done => {
       chai.request(server)
-        .post('/api/gift-card')
+        .post('/api/giftcard')
         .send({
           title:`${this.tempGiftCard.title}`,
           date: `${this.tempGiftCard.date}`,
@@ -213,12 +213,12 @@ describe('GIFT CARD ROUTES', function() {
     });
   });
 
-  describe('testing GET from api/gift-card', function() {
+  describe('testing GET from api/giftcard', function() {
     before(tempGiftCard.bind(this));
 
     it('should return a 200 on good request', done => {
       chai.request(server)
-        .get('/api/gift-card')
+        .get('/api/giftcard')
         .set({Authorization: `Bearer ${this.tempToken}`})
         .end((err, res) => {
           expect(res).to.have.property('status')
@@ -228,9 +228,9 @@ describe('GIFT CARD ROUTES', function() {
         });
     });
 
-    it('should return a 404 if the gift-card id does not exist', done => {
+    it('should return a 404 if the giftcard id does not exist', done => {
       chai.request(server)
-        .get('/api/gift-card/abc123')
+        .get('/api/giftcard/abc123')
         .set({Authorization: `Bearer ${this.tempToken}`})
         .end((err, res) => {
           expect(res).to.have.property('status')
@@ -242,7 +242,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 401 without a token', done => {
       chai.request(server)
-        .get('/api/gift-card')
+        .get('/api/giftcard')
         .end((err, res) => {
           expect(res).to.have.property('status')
             .that.is.a('number')
@@ -291,12 +291,12 @@ describe('GIFT CARD ROUTES', function() {
     });
   });
 
-  describe('testing PUT from api/gift-card', function() {
+  describe('testing PUT from api/giftcard', function() {
     before(tempGiftCard.bind(this));
 
     it('should return a 200 on good request', done => {
       chai.request(server)
-        .put(`/api/gift-card/${this.tempGiftCard._id}`)
+        .put(`/api/giftcard/${this.tempGiftCard._id}`)
         .set({Authorization: `Bearer ${this.tempToken}`})
         .send({
           title: 'New title',
@@ -312,7 +312,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 401 without a token', done => {
       chai.request(server)
-        .put(`/api/gift-card/${this.tempGiftCard._id}`)
+        .put(`/api/giftcard/${this.tempGiftCard._id}`)
         .send({
           title: 'New title',
         })
@@ -324,9 +324,9 @@ describe('GIFT CARD ROUTES', function() {
         });
     });
 
-    it('should return a 404 without the gift-card Id', done => {
+    it('should return a 404 without the giftcard Id', done => {
       chai.request(server)
-        .put('/api/gift-card')
+        .put('/api/giftcard')
         .set({Authorization: `Bearer ${this.tempToken}`})
         .send({
           title: 'New title',
@@ -340,12 +340,12 @@ describe('GIFT CARD ROUTES', function() {
     });
   });
 
-  describe('testing DELETE from api/gift-card', function() {
+  describe('testing DELETE from api/giftcard', function() {
     before(tempGiftCard.bind(this));
 
     it('should return a 204 on proper delete request', done => {
       chai.request(server)
-        .delete(`/api/gift-card/${this.tempGiftCard._id}`)
+        .delete(`/api/giftcard/${this.tempGiftCard._id}`)
         .set({Authorization: `Bearer ${this.tempToken}`})
         .end((err, res) => {
           expect(res).to.have.property('status')
@@ -357,7 +357,7 @@ describe('GIFT CARD ROUTES', function() {
 
     it('should return a 404 if the id is not passed in', done => {
       chai.request(server)
-        .delete('/api/gift-card/')
+        .delete('/api/giftcard/')
         .set({Authorization: `Bearer ${this.tempToken}`})
         .end((err, res) => {
           expect(res).to.have.property('status')

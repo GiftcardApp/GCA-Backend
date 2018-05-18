@@ -6,19 +6,19 @@ const upload = multer({dest: dataDir})
 
 const debug = require('debug')
 const bearerAuth = require('../lib/bearer-auth-middleware')
-const giftCardController = require('../controller/gift-card-controller')
+const giftCardController = require('../controller/giftcard-controller')
 
 module.exports = function(router) {
-  router.post('/gift-card', bearerAuth, upload.single('photo'), (req,res) => {
-  debug('#POST /gift-card')
+  router.post('/giftcard', bearerAuth, upload.single('photo'), (req,res) => {
+  debug('#POST /giftcard')
 
   giftCardCtrl.enterGiftCard(req)
     .then(giftCard => res.status(201).json(giftCard))
     .catch(err => res.status(err.status).send(err.name))
   })
 
-  router.get('/gift-card', bearerAuth, (req, res) => {
-    debug('#GET /gift-card')
+  router.get('/giftcard', bearerAuth, (req, res) => {
+    debug('#GET /giftcard')
 
     giftCardCtrl.fetchGiftCard(req)
       .then(giftCard => res.json(giftCard))
@@ -28,15 +28,15 @@ module.exports = function(router) {
   })
 
   router.put('/giftcard/:id', bearerAuth, (req, res) => {
-    debug('#PUT /gift-card/:id')
+    debug('#PUT /giftcard/:id')
 
     giftCardCtrl.updateGiftCard(req)
-      .then(gift-card => res.json(gift-card))
+      .then(giftCard => res.json(giftCard))
       .catch(err => res.status(err.status).send(err.message))
   })
 
-  router.delete('gift-card/:id', bearerAuth, (req, res) => {
-    debug('#DELETE /gift-card/:id')
+  router.delete('giftcard/:id', bearerAuth, (req, res) => {
+    debug('#DELETE /giftcard/:id')
 
     giftCardCtrl.deleteGiftCard(req.params.id)
     .then(() => res.sendStatus(204))

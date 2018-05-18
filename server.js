@@ -6,7 +6,7 @@ const express = require('express')
 const cors = require('cors')
 const Promise = require('bluebird')
 const authRoutes = require('./routes/auth-routes')
-// TODO: find out what routes I need to add here.
+const giftCardRoutes = require('./routes/giftcard-routes')
 const bodyParser = require('body-parser').json()
 const mongoose = require('mongoose')
 
@@ -21,5 +21,6 @@ mongoose.connect(MONGODB_URI)
 app.use(cors())
 app.use(bodyParser)
 app.use('/api', authRoutes(router))
-// TODO: and same routes here...
+app.use('/api', giftCardRoutes(router))
+
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
