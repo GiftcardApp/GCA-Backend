@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 
 const app = module.exports = express()
 const router = express.Router()
-const PORT = process.env.PORT || 3680
+const PORT = process.env.PORT || 3898
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/gca-backend-dev'
 
 mongoose.Promise = Promise
